@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
+import { FirebaseChatProvider } from './contexts/FirebaseChatContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import Login from './pages/Login';
 import Home from './pages/Home';
@@ -7,13 +8,15 @@ import Chat from './pages/Chat';
 import Posts from './pages/Posts';
 import Journal from './pages/Journal';
 import Wellness from './pages/Wellness';
+import Mentor from './pages/Mentor';
 import './App.css'
 
 function App() {
   return (
     <AuthProvider>
-      <Router>
-        <div className="app">
+      <FirebaseChatProvider>
+        <Router>
+          <div className="app">
           <Routes>
             {/* Public route */}
             <Route path="/login" element={<Login />} />
@@ -51,11 +54,19 @@ function App() {
                 </ProtectedRoute>
               } 
             />
-              <Route 
+            <Route 
               path="/wellness" 
               element={
                 <ProtectedRoute>
                   <Wellness />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/mentor" 
+              element={
+                <ProtectedRoute>
+                  <Mentor />
                 </ProtectedRoute>
               } 
             />
@@ -65,6 +76,7 @@ function App() {
           </Routes>
         </div>
       </Router>
+      </FirebaseChatProvider>
     </AuthProvider>
   )
 }
